@@ -1,8 +1,8 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[ show edit update destroy ]
-  before_action only: [new create] do
+  before_action only: %i[new create destroy] do
     authorize_request(["admin"])
-  end
+  end 
   #before_action :authenticate_user!, except: %i[ index show]
   # GET /reports or /reports.json
   def index
