@@ -4,3 +4,4 @@ class ApplicationController < ActionController::Base
             redirect_to reports_path, notice: 'You are not authorized to perform this action'
     end
 end
+end
