@@ -1,9 +1,10 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :set_report 
 
   # GET /comments or /comments.json
   def index
-    @comments = Comment.all
+    @comments = @report.comments
   end
 
   # GET /comments/1 or /comments/1.json
@@ -25,7 +26,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to comment_url(@comment), notice: "Comment was successfully created." }
+        format.html { redirect_to report_comment_path(@report.id, @comment.id), notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to comment_url(@comment), notice: "Comment was successfully updated." }
+        format.html { redirect_to report_comment_path(@report.id, @comment.id), notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +53,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: "Comment was successfully destroyed." }
+      format.html { redirect_to report_comments_path(@report.id), notice: "Comment was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -66,5 +67,9 @@ class CommentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def comment_params
       params.require(:comment).permit(:content, :user_id, :report_id)
+    end
+
+    def set_report
+      @report = Report.find(params[:report_id])
     end
 end
