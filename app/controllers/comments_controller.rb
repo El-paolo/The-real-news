@@ -13,7 +13,8 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
+    @comment = @report.comments.new
+    
   end
 
   # GET /comments/1/edit
@@ -22,7 +23,8 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @report.comments.new(comment_params)
+    @comment.user = current_user
 
     respond_to do |format|
       if @comment.save
@@ -66,7 +68,7 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:content, :user_id, :report_id)
+      params.require(:comment).permit(:content)
     end
 
     def set_report
