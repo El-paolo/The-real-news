@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
-  before_action :set_report 
-
+  before_action :set_report
+  #before_action :set_user
   # GET /comments or /comments.json
   def index
     @comments = @report.comments
@@ -69,6 +69,10 @@ class CommentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def comment_params
       params.require(:comment).permit(:content)
+    end
+
+    def set_user
+      @user = User.find(params[:user_id])
     end
 
     def set_report
