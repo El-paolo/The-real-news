@@ -6,7 +6,7 @@
   <% @comments.each do |comment| %>
     <%= render comment %>
     <p>
-      <%= link_to "Show this comment", report_comment_path(@report.id, @comment.id) %>
+      <%= link_to "Show this comment", report_comment_path(@report.id, comment.id) %>
     </p>
   <% end %>
 </div>

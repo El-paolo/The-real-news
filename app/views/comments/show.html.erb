@@ -4,7 +4,7 @@
 
 <div>
   <%= link_to "Edit this comment", edit_report_comment_path(@report.id, @comment.id) %> |
-  <%= link_to "Back to comments", report_comment_path(@report.id) %>
+  <%= link_to "Back to comments", report_comments_path(@report.id) %>
 
   <%= button_to "Destroy this comment", report_comment_path(@report.id, @comment.id), method: :delete %>
 </div>

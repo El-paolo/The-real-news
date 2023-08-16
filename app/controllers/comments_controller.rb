@@ -1,7 +1,12 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action :set_report
-  #before_action :set_user
+  before_action :authenticate_user!, except: %i[ index show]
+  before_action :comment_permission, only: %i[ edit destroy ]
+  before_action only: %i[ destroy ] do
+    authorize_request(["admin"])
+  end
+  
   # GET /comments or /comments.json
   def index
     @comments = @report.comments
@@ -71,11 +76,14 @@ class CommentsController < ApplicationController
       params.require(:comment).permit(:content)
     end
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
-
     def set_report
       @report = Report.find(params[:report_id])
     end
+
+    def comment_permission
+      unless @comment.user_id == current_user.id || current_user.role != 2
+        redirect_to report_comment_path(@report.id), notice: 'You are not allowed to perform this action'
+      end
+    end
+     
 end
