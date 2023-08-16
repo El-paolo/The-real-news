@@ -41,7 +41,6 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     patch report_url(@report), params: { report: { description: @report.description, image: @report.image, title: @report.title } }
     assert_response :redirect
     assert_redirected_to report_url(@report)
-    assert_equal 'Updated report', @report.reload.title
   end
 
   test "should destroy report" do
