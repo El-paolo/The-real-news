@@ -11,11 +11,13 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
+    sign_in users(:one)
     get new_report_url
     assert_response :success
   end
 
   test "should create report" do
+    sign_in users(:one)
     assert_difference("Report.count") do
       post reports_url, params: { report: { description: @report.description, image: @report.image, title: @report.title } }
     end
@@ -29,16 +31,19 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
+    sign_in users(:one)
     get edit_report_url(@report)
     assert_response :success
   end
 
   test "should update report" do
+    sign_in users(:one)
     patch report_url(@report), params: { report: { description: @report.description, image: @report.image, title: @report.title } }
     assert_redirected_to report_url(@report)
   end
 
   test "should destroy report" do
+    sign_in users(:one)
     assert_difference("Report.count", -1) do
       delete report_url(@report)
     end
