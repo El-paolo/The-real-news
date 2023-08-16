@@ -11,6 +11,6 @@
     <% end %>
     
   <%= link_to "Back to reports", reports_path %> | <%= link_to "New comment", new_report_comment_path(@report.id) %>
-
+  | <%= link_to "Comments", report_comments_path(@report.id) %>
   
 </div>

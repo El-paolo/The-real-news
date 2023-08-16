@@ -84,6 +84,5 @@ class CommentsController < ApplicationController
       unless @comment.user_id == current_user.id || current_user.role != 2
         redirect_to report_comment_path(@report.id), notice: 'You are not allowed to perform this action'
       end
-    end
-     
+    end     
 end
